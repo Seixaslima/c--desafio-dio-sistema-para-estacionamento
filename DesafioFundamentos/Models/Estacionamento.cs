@@ -22,28 +22,40 @@ namespace DesafioFundamentos.Models
         public void RemoverVeiculo()
         {
             string placa = "";
-
-            // Pedir para o usuário digitar a placa e armazenar na variável placa
-            Console.WriteLine("Digite a placa do veículo para remover:");
-            placa = Console.ReadLine();
-
-            // Verifica se o veículo existe
-            if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
+            //verifica se tem algum veiculo estacionado
+            if (veiculos.Any())
             {
-                int horas = 0;
-                Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
-                horas = Convert.ToInt32(Console.ReadLine());
+                // Pedir para o usuário digitar a placa e armazenar na variável placa
+                Console.WriteLine("Digite a placa do veículo para remover:");
+                foreach (string veiculo in veiculos)
+                {
+                    Console.WriteLine(veiculo);
+                }
+                placa = Console.ReadLine();
 
-                decimal valorTotal = precoInicial + horas * precoPorHora;
+                // Verifica se o veículo existe
+                if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
+                {
+                    int horas = 0;
+                    Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
+                    horas = Convert.ToInt32(Console.ReadLine());
 
-                veiculos.Remove(placa);
+                    decimal valorTotal = precoInicial + horas * precoPorHora;
 
-                Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal}");
+                    veiculos.Remove(placa);
+
+                    Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal}");
+                }
+                else
+                {
+                    Console.WriteLine("Desculpe, esse veículo não está estacionado aqui. Confira se digitou a placa corretamente");
+                }
             }
             else
             {
-                Console.WriteLine("Desculpe, esse veículo não está estacionado aqui. Confira se digitou a placa corretamente");
+                Console.WriteLine("Não há veículos estacionados no momento.");
             }
+
         }
 
         public void ListarVeiculos()
